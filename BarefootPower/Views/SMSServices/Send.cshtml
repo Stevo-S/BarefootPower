@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Send";
+}
+
+<h2>Send</h2>
+
+
+@if (TempData["SendSmsResponse"] != null)
+{
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Reply from Remote server</strong>
+        <p>
+            @TempData["SendSmsResponse"]
+        </p>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="destination" class="control-label col-md-2">Destination</label>
+            <div class="col-md-10">
+                <input id="destination" type="tel" class="form-control" name="destination" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="message" class="control-label col-md-2">Message</label>
+            <div class="col-md-10">
+                <input id="message" type="text" class="form-control" name="message" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="serviceId" class="control-label col-md-2">Service ID</label>
+            <div class="col-md-10">
+                <input id="serviceId" type="text" class="form-control" name="serviceId" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="shortCode" class="control-label col-md-2">ShortCode</label>
+            <div class="col-md-10">
+                <input id="shortCode" type="text" class="form-control" name="shortCode" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Send SMS" class="btn btn-lg" />
+            </div>
+        </div>
+    </div>
+}

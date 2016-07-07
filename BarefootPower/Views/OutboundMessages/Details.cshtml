@@ -1,0 +1,58 @@
+﻿@model BarefootPower.Models.OutboundMessage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OutboundMessage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Destination)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Destination)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Correlator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Correlator)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
