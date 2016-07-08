@@ -4,12 +4,18 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Agents</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href=@Url.Action("Create") class="btn btn-primary">
+        Add Agent
+        <span class="badge">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </span>
+    </a>
 </p>
-<table class="table">
+
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -53,9 +59,8 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
         </td>
     </tr>
 }
