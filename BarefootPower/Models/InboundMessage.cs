@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using BarefootPower.Models;
 
 namespace BarefootPower.Models
 {
@@ -44,13 +45,22 @@ namespace BarefootPower.Models
             {
                 response = ex.Message;
             }
-            catch(MissingFieldException ex)
+            catch (MissingFieldException ex)
             {
                 response = ex.Message;
             }
-            catch(FormatException ex)
+            catch (FormatException ex)
             {
                 response = ex.Message;
+            }
+            catch (ValidationException ex)
+            {
+                response = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                response = ex.Message;
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
             }
 
             return response;
@@ -65,7 +75,7 @@ namespace BarefootPower.Models
             int present;
             int elec;
             int solar;
-            string[] sales;
+            string[] sentSales;
 
             if (string.IsNullOrEmpty(Message))
             {
@@ -78,9 +88,9 @@ namespace BarefootPower.Models
                 throw new MissingFieldException("The number of fields is less than expected");
             }
 
-            groupName = fields[0];
+            groupName = fields[0].Trim();
 
-            if (! Int32.TryParse(fields[1], out membership))
+            if (!Int32.TryParse(fields[1], out membership))
             {
                 throw new FormatException("Unable to read the total number of members");
             }
@@ -100,25 +110,80 @@ namespace BarefootPower.Models
                 throw new FormatException("Unable to read the 'solar' field");
             }
 
-            sales = fields[5].Split(',');
-            if (sales.Length < solar)
+            sentSales = fields[5].Split(',');
+            if (sentSales.Length < solar)
             {
-                throw new MissingFieldException("The number of sales is less than the expected " + sales.Length.ToString());
+                throw new MissingFieldException("The number of sales is less than the expected " + sentSales.Length.ToString());
+            }
+           
+            using (var db = new ApplicationDbContext())
+            {
+                var agent = db.Agents.Where(a => a.Phone.Contains(Sender)).FirstOrDefault();
+                if (agent == null)
+                {
+                    throw new ValidationException("Agent is not registered");
+                }
+
+                var saleRegistration = new SaleRegistration()
+                {
+                    Agent = agent,
+                    GroupName = groupName,
+                    Membership = membership,
+                    Present = present,
+                    Elec = elec,
+                    Solar = solar,
+                    Date = DateTime.Now
+                };
+
+                db.SaleRegistrations.Add(saleRegistration);
+                foreach (var sentSale in sentSales)
+                {
+                    int numberOfSaleFields = 3;
+                    string[] saleFields = sentSale.Split('#');
+                    int c600 = 0, c3000 = 0, c3000tv = 0;
+
+                    if (saleFields.Length != numberOfSaleFields)
+                    {
+                        throw new MissingFieldException("The number of fields is less than expected");
+                    }
+
+                    switch (saleFields[2].Trim().ToLower())
+                    {
+                        case "c600":
+                            c600 = 1;
+                            break;
+
+                        case "c3000":
+                            c3000 = 1;
+                            break;
+
+                        case "c3000tv":
+                            c3000tv = 1;
+                            break;
+
+                        default:
+                            throw new ValidationException("Could not read product: Product should be 'C600', 'C3000' or 'C3000TV'");
+                    }
+
+                    var sale = new Sale()
+                    {
+                        ClientName = saleFields[0].Trim(),
+                        ClientPhone = saleFields[1].Trim(),
+                        SaleRegistration = saleRegistration,
+                        C600 = c600,
+                        C3000 = c3000,
+                        C3000TV = c3000tv
+                    };
+
+                    db.Sales.Add(sale);
+
+                }
+                db.SaveChanges();
             }
 
-            string parsedSales = "";
-            foreach (var sale in sales)
-            {
-                parsedSales += sale + "\n";
-            }
+            return "Successfully recorded the sales";
 
-            return "Group: " + groupName +
-                    "\nMembers: " + membership +
-                    "\nPresent: " + present +
-                    "\nElec: " + elec +
-                    "\nSolar: " + solar +
-                    "Sales: " + parsedSales 
-                ;
+
         }
     }
 }
