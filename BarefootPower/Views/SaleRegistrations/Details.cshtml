@@ -1,0 +1,66 @@
+﻿@model BarefootPower.Models.SaleRegistration
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SaleRegistration</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Membership)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Membership)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Present)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Present)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Elec)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Elec)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Solar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Solar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
