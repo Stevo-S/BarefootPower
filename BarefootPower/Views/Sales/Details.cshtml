@@ -1,0 +1,58 @@
+﻿@model BarefootPower.Models.Sale
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sale</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClientName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClientPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C600)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C600)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C3000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C3000)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C3000TV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C3000TV)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

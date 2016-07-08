@@ -228,6 +228,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OutboundMessagesController.cs" />
     <Compile Include="Controllers\SaleRegistrationsController.cs" />
+    <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\SMSServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -359,6 +360,11 @@
     <Content Include="Views\SaleRegistrations\Details.cshtml" />
     <Content Include="Views\SaleRegistrations\Edit.cshtml" />
     <Content Include="Views\SaleRegistrations\Index.cshtml" />
+    <Content Include="Views\Sales\Create.cshtml" />
+    <Content Include="Views\Sales\Delete.cshtml" />
+    <Content Include="Views\Sales\Details.cshtml" />
+    <Content Include="Views\Sales\Edit.cshtml" />
+    <Content Include="Views\Sales\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
