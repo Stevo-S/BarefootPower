@@ -26,6 +26,12 @@ namespace BarefootPower
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Add a custom script bundle
+            bundles.Add(new ScriptBundle("~/bundles/custom").Include("~/Scripts/custom.js"));
+            // custom stylesheet
+            bundles.Add(new StyleBundle("~/Content/customcss").Include("~/Content/custom.css"));
+
         }
     }
 }
