@@ -6,6 +6,17 @@
 
 <h2>Recorded Sales</h2>
 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" name="submit" value="export" class="btn btn-default" />
+        </div>
+    </div>
+}
+
 <table class="table table-striped">
     <tr>
         <th>
