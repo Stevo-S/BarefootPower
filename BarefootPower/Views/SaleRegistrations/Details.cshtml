@@ -6,61 +6,109 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>SaleRegistration</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.GroupName)
-        </dt>
+<div class="row">
+    <div class="col-md-4">
+        <h4>SaleRegistration</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.GroupName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.GroupName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.GroupName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Membership)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Membership)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Membership)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Membership)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Present)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Present)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Present)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Present)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Elec)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Elec)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Elec)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Elec)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Solar)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Solar)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Solar)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Solar)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+
+    <div class="col-md-8 hasLeftBorder">
+        <h4>Customers</h4>
+        <br />
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sales.First().ClientName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sales.First().ClientPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sales.First().C600)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sales.First().C3000)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sales.First().C3000TV)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Sales)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClientName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClientPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.C600)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.C3000)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.C3000TV)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("« Back to List", "Index", null, new { @class = "btn btn-info btn-sm" })
 </p>

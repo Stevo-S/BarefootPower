@@ -28,5 +28,7 @@ namespace BarefootPower.Models
         public DateTime Date { get; set; }
 
         public virtual Agent Agent { get; set; }
+
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }

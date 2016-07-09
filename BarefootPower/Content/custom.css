@@ -19,3 +19,11 @@
 .handHover {
     cursor: pointer;
 }
+
+.hasLeftBorder {
+    border-left: 1px solid lightgray;
+}
+
+.hasRightBorder {
+    border-right: 1px gray;
+}
