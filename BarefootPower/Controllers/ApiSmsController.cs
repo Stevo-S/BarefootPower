@@ -80,7 +80,8 @@ namespace BarefootPower.Controllers
                     LinkId = incoming.LinkId,
                     Message = incoming.GetResponse(),
                     ServiceId = serviceId,
-                    Correlator = incoming.Correlator
+                    Correlator = incoming.Correlator,
+                    Timestamp = DateTime.Now
                 };
 
                 db.OutboundMessages.Add(outgoing);

@@ -269,6 +269,10 @@
     <Compile Include="Migrations\201607071058238_AddDateToSaleRegistration.Designer.cs">
       <DependentUpon>201607071058238_AddDateToSaleRegistration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607091155007_AddTimestampToOutboundMessages.cs" />
+    <Compile Include="Migrations\201607091155007_AddTimestampToOutboundMessages.Designer.cs">
+      <DependentUpon>201607091155007_AddTimestampToOutboundMessages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agent.cs" />
@@ -409,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607071058238_AddDateToSaleRegistration.resx">
       <DependentUpon>201607071058238_AddDateToSaleRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607091155007_AddTimestampToOutboundMessages.resx">
+      <DependentUpon>201607091155007_AddTimestampToOutboundMessages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -29,9 +29,7 @@ namespace BarefootPower.Models
         [StringLength(50)]
         public string Correlator { get; set; }
 
-        DateTime Timestamp { get; set; }
-
-
+        public DateTime Timestamp { get; set; }
 
         public string Send()
         {
