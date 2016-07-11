@@ -79,6 +79,7 @@ namespace BarefootPower.Controllers
                 salesRegistrationsSheet.Cells[1, 7].Value = "With Elec";
                 salesRegistrationsSheet.Cells[1, 8].Value = "With Solar";
                 salesRegistrationsSheet.Cells[1, 9].Value = "Total Sales";
+                salesRegistrationsSheet.Cells[2, 9, registeredCount + 1, 9].Formula = "SUM(H2)";
 
                 salesRegistrationsSheet.Cells[2, 1].LoadFromCollection(salesRegistered.ToList());
 
@@ -102,6 +103,7 @@ namespace BarefootPower.Controllers
                 customerSheet.Cells[1, 8].Value = "C3000";
                 customerSheet.Cells[1, 9].Value = "C3000TV";
                 customerSheet.Cells[1, 10].Value = "Total";
+                customerSheet.Cells[2, 10, detailedCount + 1, 10].Formula = "SUM(G2:I2)";
 
                 customerSheet.Cells[2, 1].LoadFromCollection(detailedSales.ToList());
 
