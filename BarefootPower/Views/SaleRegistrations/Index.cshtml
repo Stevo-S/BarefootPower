@@ -43,34 +43,34 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Agent.FirstName)
-            @Html.DisplayFor(modelItem => item.Agent.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Membership)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Present)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Elec)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Solar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Agent.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Membership)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Present)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Elec)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Solar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+            </td>
+        </tr>
+                    }
 
 </table>
