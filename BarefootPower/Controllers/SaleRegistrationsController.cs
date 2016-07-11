@@ -70,6 +70,7 @@ namespace BarefootPower.Controllers
                 var customerSheet = excelPackage.Workbook.Worksheets.Add("Customer Sheet");
 
                 // Populate Sales Registration Sheet
+                salesRegistrationsSheet.DefaultColWidth = 16;
                 salesRegistrationsSheet.Cells[1, 1].Value = "Date";
                 salesRegistrationsSheet.Cells[1, 2].Value = "Location";
                 salesRegistrationsSheet.Cells[1, 3].Value = "REA";
@@ -93,6 +94,7 @@ namespace BarefootPower.Controllers
                 salesRegistrationsSheet.Cells[2, 1, registeredCount + 1, 1].Style.Numberformat.Format = "dd/mm/yyyy";
 
                 // Populate Customer Sheet
+                customerSheet.DefaultColWidth = 16;
                 customerSheet.Cells[1, 1].Value = "Date";
                 customerSheet.Cells[1, 2].Value = "Location";
                 customerSheet.Cells[1, 3].Value = "REA";
