@@ -16,11 +16,34 @@ namespace BarefootPower.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: InboundMessages
-        public ActionResult Index(int? page)
+        public ActionResult Index(String phoneNumber, String messageText, DateTime? startDate, DateTime? endDate, int? page)
         {
             var messages = from m in db.InboundMessages
                            select m;
             messages = messages.OrderByDescending(m => m.Id);
+
+            if (!String.IsNullOrEmpty(phoneNumber))
+            {
+                messages = messages.Where(m => m.Sender.Contains(phoneNumber));
+                ViewBag.phoneFilter = phoneNumber;
+            }
+
+            if (!String.IsNullOrEmpty(messageText))
+            {
+                messages = messages.Where(m => m.Message.Contains(messageText));
+                ViewBag.messageFilter = messageText;
+            }
+
+            if (startDate != null)
+            {
+                if (endDate < startDate || endDate == null)
+                {
+                    endDate = DateTime.Now;
+                }
+                messages = messages.Where(m => m.Timestamp > startDate && m.Timestamp < endDate);
+                ViewBag.startDateFilter = startDate;
+                ViewBag.endDateFilter = endDate;
+            }
 
             int pageNumber = (page ?? 1);
             int pageSize = 25;
