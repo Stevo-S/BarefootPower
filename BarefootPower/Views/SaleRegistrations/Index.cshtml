@@ -47,7 +47,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Agent.FullName)
+                @Html.ActionLink(item.Agent.FullName, "Details", "Agents", new { id = item.Agent.Id }, null )
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GroupName)
