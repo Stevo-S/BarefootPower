@@ -12,14 +12,14 @@
         @Html.AntiForgeryToken()
 
         <div class="input-group input-group-sm col-md-2">
-            <input type="text" name="groupName" class="form-control" placeholder="Group name" />
+            <input type="text" name="groupName" class="form-control" placeholder="Group name" value="@ViewBag.GroupNameFilter" />
         </div>
 
         <div class="input-group input-group-sm col-md-2">
             <span class="input-group-addon">
                 Between
             </span>
-            <input type="datetime-local" name="startDate" class="form-control" />
+            <input type="datetime-local" name="startDate" class="form-control" value="@ViewBag.StartDateFilter"/>
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -29,7 +29,7 @@
             <span class="input-group-addon">
                 and
             </span>
-            <input type="datetime-local" name="endDate" class="form-control" />
+            <input type="datetime-local" name="endDate" class="form-control" value="@ViewBag.EndDateFilter"/>
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>

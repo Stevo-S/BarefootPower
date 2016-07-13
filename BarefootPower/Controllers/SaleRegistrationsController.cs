@@ -67,6 +67,12 @@ namespace BarefootPower.Controllers
             }
             else
             {
+                ViewBag.GroupNameFilter = groupName;
+                if (startDate != null)
+                {
+                    ViewBag.StartDateFilter = startDate.Value.ToString("s");
+                    ViewBag.EndDateFilter = endDate.Value.ToString("s");
+                }
                 return View(filteredSales.ToList());
             }
         }
