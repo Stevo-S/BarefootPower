@@ -1,7 +1,7 @@
 ﻿@model BarefootPower.Models.SaleRegistration
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Sales";
 }
 
 <h2>Details</h2>
@@ -11,6 +11,14 @@
         <h4>SaleRegistration</h4>
         <hr />
         <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("Agent")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Agent.FullName)
+            </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.GroupName)
             </dt>
