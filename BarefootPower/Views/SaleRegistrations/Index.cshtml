@@ -1,21 +1,56 @@
 ﻿@model IEnumerable<BarefootPower.Models.SaleRegistration>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List";
 }
 
 <h2>Recorded Sales</h2>
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    @Html.AntiForgeryToken()
+<div class="well">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-inline" }))
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" name="submit" value="export" class="btn btn-default" />
+        <div class="input-group input-group-sm col-md-2">
+            <input type="text" name="groupName" class="form-control" placeholder="Group name" />
         </div>
-    </div>
-}
+
+        <div class="input-group input-group-sm col-md-2">
+            <span class="input-group-addon">
+                Between
+            </span>
+            <input type="datetime-local" name="startDate" class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+
+        <div class="input-group input-group-sm col-md-2">
+            <span class="input-group-addon">
+                and
+            </span>
+            <input type="datetime-local" name="endDate" class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+
+        <button type="submit" class="btn btn-info" aria-label="Left Align">
+            Filter
+            <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+        </button>
+
+        <button type="submit" name="submit" value="Export" class="btn btn-info" aria-label="Left Align">
+            Export
+            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+        </button>
+
+    }
+
+</div>
+
+
+<br />
 
 <table class="table table-striped">
     <tr>
@@ -47,7 +82,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Agent.FullName, "Details", "Agents", new { id = item.Agent.Id }, null )
+                @Html.ActionLink(item.Agent.FullName, "Details", "Agents", new { id = item.Agent.Id }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GroupName)
@@ -71,6 +106,6 @@
                 @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
             </td>
         </tr>
-                    }
+    }
 
 </table>

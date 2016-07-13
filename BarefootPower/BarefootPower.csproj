@@ -280,7 +280,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agent.cs" />
-    <Compile Include="Models\Class1.cs" />
+    <Compile Include="Models\SalesRegistrationExport.cs" />
     <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InboundMessage.cs" />
