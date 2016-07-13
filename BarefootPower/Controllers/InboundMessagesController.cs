@@ -41,8 +41,8 @@ namespace BarefootPower.Controllers
                     endDate = DateTime.Now;
                 }
                 messages = messages.Where(m => m.Timestamp > startDate && m.Timestamp < endDate);
-                ViewBag.startDateFilter = startDate;
-                ViewBag.endDateFilter = endDate;
+                ViewBag.startDateFilter = startDate.Value.ToString("s");
+                ViewBag.endDateFilter = endDate.Value.ToString("s");
             }
 
             int pageNumber = (page ?? 1);
