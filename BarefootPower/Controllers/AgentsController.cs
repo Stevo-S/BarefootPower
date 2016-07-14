@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BarefootPower.Models;
+using PagedList;
 
 namespace BarefootPower.Controllers
 {
@@ -15,9 +16,17 @@ namespace BarefootPower.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Agents
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Agents.ToList());
+            var agents = from a in db.Agents
+                         select a;
+
+            agents = agents.OrderBy(a => a.Id);
+
+            int pageNumber = (page ?? 1);
+            int pageSize = 16;
+
+            return View(agents.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Agents/Details/5

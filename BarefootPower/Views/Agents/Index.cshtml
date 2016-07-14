@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BarefootPower.Models.Agent>
+﻿@model PagedList.IPagedList<BarefootPower.Models.Agent>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Agents List";
@@ -18,25 +19,25 @@
 <table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.First().FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MiddleName)
+            @Html.DisplayNameFor(model => model.First().MiddleName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.First().LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            @Html.DisplayNameFor(model => model.First().Phone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Location)
+            @Html.DisplayNameFor(model => model.First().Location)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.First().Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.isActive)
+            @Html.DisplayNameFor(model => model.First().isActive)
         </th>
         <th></th>
     </tr>
@@ -72,3 +73,10 @@
 }
 
 </table>
+
+
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of (@Model.PageCount)
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
