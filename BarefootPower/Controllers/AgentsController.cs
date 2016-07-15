@@ -46,7 +46,7 @@ namespace BarefootPower.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,MiddleName,LastName,Phone,Location,Email")] Agent agent)
+        public ActionResult Create([Bind(Include = "Id,FirstName,MiddleName,LastName,Phone,Location,Email,isActive")] Agent agent)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace BarefootPower.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,MiddleName,LastName,Phone,Location,Email")] Agent agent)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,MiddleName,LastName,Phone,Location,Email,isActive")] Agent agent)
         {
             if (ModelState.IsValid)
             {

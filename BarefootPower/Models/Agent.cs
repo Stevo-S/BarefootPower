@@ -32,6 +32,9 @@ namespace BarefootPower.Models
         [StringLength(100)]
         public string Email { get; set; }
 
+        [DisplayName("Active?")]
+        public bool isActive { get; set; }
+
         public string FullName
         {
             get

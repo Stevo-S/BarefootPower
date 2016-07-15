@@ -277,6 +277,10 @@
     <Compile Include="Migrations\201607091155007_AddTimestampToOutboundMessages.Designer.cs">
       <DependentUpon>201607091155007_AddTimestampToOutboundMessages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607151219159_AddActiveStatusToAgents.cs" />
+    <Compile Include="Migrations\201607151219159_AddActiveStatusToAgents.Designer.cs">
+      <DependentUpon>201607151219159_AddActiveStatusToAgents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agent.cs" />
@@ -421,6 +425,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607091155007_AddTimestampToOutboundMessages.resx">
       <DependentUpon>201607091155007_AddTimestampToOutboundMessages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607151219159_AddActiveStatusToAgents.resx">
+      <DependentUpon>201607151219159_AddActiveStatusToAgents.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

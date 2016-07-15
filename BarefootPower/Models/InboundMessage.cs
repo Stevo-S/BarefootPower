@@ -115,13 +115,18 @@ namespace BarefootPower.Models
             {
                 throw new MissingFieldException("The number of sales is less than the expected " + sentSales.Length.ToString());
             }
-           
+
             using (var db = new ApplicationDbContext())
             {
                 var agent = db.Agents.Where(a => a.Phone.Contains(Sender)).FirstOrDefault();
                 if (agent == null)
                 {
                     throw new ValidationException("Agent is not registered");
+                }
+
+                if (!agent.isActive)
+                {
+                    throw new ValidationException("Agent is not activated");
                 }
 
                 var saleRegistration = new SaleRegistration()
