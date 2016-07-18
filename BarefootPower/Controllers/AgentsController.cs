@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BarefootPower.Models;
 using PagedList;
+using OfficeOpenXml;
 
 namespace BarefootPower.Controllers
 {
@@ -123,6 +124,103 @@ namespace BarefootPower.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // GET 
+        public ActionResult Upload()
+        {
+            ViewBag.hasErrors = false;
+            return View();
+        }
+
+        // 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Upload(HttpPostedFileBase AgentsFile)
+        {
+            //TODO: Implement Upload Agents via Excel sheet
+            // Read uploaded Microsoft Excel file and create tips based on file content
+            // Assumes the tips are in the first column starting from the second row.
+            try
+            {
+                var ErrorMessages = new List<string> { };
+                ViewBag.hasErrors = false;
+                if ((AgentsFile != null) && (AgentsFile.ContentLength > 0) && !string.IsNullOrEmpty(AgentsFile.FileName))
+                {
+                    using (var package = new ExcelPackage(AgentsFile.InputStream))
+                    {
+                        var currentSheet = package.Workbook.Worksheets;
+                        var worksheet = currentSheet.First();
+                        var numberOfColumns = worksheet.Dimension.End.Column;
+                        var numberOfRows = worksheet.Dimension.End.Row;
+
+                        string firstNameColumn, middleNameColumn, lastNameColumn, phoneColumn, locationColumn, emailColumn, activeColumn;
+
+                        using (var headers = worksheet.Cells[1, 1, 1, numberOfColumns])
+                        {
+                            var expectedHeaders = new[] { "first name", "middle name", "last name",
+                                                          "phone",
+                                                          "email",
+                                                          "active"
+                                                        };
+                            if (!expectedHeaders.All(eh => headers.Any(h => h.Value.ToString().ToLower().StartsWith(eh))))
+                            {
+                                ErrorMessages.Add("Missing and/or incorrectly named fields");
+                                ViewBag.hasErrors = true;
+                                return View();
+                            }
+
+                            firstNameColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("first name")).Address[0].ToString();
+                            middleNameColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("middle name")).Address[0].ToString();
+                            lastNameColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("last name")).Address[0].ToString();
+                            phoneColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("phone")).Address[0].ToString();
+                            emailColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("email")).Address[0].ToString();
+                            locationColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("location")).Address[0].ToString();
+                            activeColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("active")).Address[0].ToString();
+                        }
+                        for (int row = 2; row <= numberOfRows; row++)
+                        {
+                            var firstName = worksheet.Cells[firstNameColumn + row].Value.ToString();
+                            var middleName = worksheet.Cells[middleNameColumn + row].Value != null ? worksheet.Cells[middleNameColumn + row].Value.ToString() : "";
+                            var lastName = worksheet.Cells[lastNameColumn + row].Value.ToString();
+                            var phone = worksheet.Cells[phoneColumn + row].Value.ToString();
+                            var location = worksheet.Cells[locationColumn + row].Value.ToString();
+                            var email = worksheet.Cells[emailColumn + row].Value != null ? worksheet.Cells[emailColumn + row].Value.ToString() : "";
+                            var activeStatus = worksheet.Cells[activeColumn + row].Value.ToString().ToLower().Equals("yes") ? true : false;
+
+                            // Ignore records with the phone number already existing in the database
+                            if (db.Agents.Where(a => a.Phone.EndsWith(phone.Substring(phone.Length - 9))).Any())
+                            {
+                                continue;
+                            }
+
+                            var agent = new Agent()
+                            {
+                                FirstName = firstName,
+                                MiddleName = middleName,
+                                LastName = lastName,
+                                Phone = phone,
+                                Location = location,
+                                Email = email,
+                                isActive = activeStatus
+                            };
+
+                            db.Agents.Add(agent);
+                        }
+                    }
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                return View();
+            }
+
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -13,6 +13,7 @@ namespace BarefootPower.SMSCentre
         private static string username = ConfigurationManager.AppSettings["SPUserName"];
         private static string password = ConfigurationManager.AppSettings["SPPassword"];
         private static string HostPPPAddress = ConfigurationManager.AppSettings["ServerPPPIPAddress"];
+        private static string RemoteSmsServiceUrl = ConfigurationManager.AppSettings["RemoteSMSServiceURI"];
         private static string spID = ConfigurationManager.AppSettings["SPID"];
 
         public static readonly Dictionary<string, string> SOAPRequestNamespaces = new Dictionary<string, string>()
@@ -49,6 +50,12 @@ namespace BarefootPower.SMSCentre
         {
             return string.Join("", MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(input)).Select(s => s.ToString("x2")));
         }
-        
+
+        public static string GetRemoteSmsServiceUrl()
+        {
+            return RemoteSmsServiceUrl;
+        }
+
+
     }
 }

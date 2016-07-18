@@ -38,7 +38,7 @@ namespace BarefootPower.Models
             using (var handler = new HttpClientHandler() { Credentials = new NetworkCredential(ConnectionDetails.GetUsername(), password) })
             using (var client = new HttpClient(handler))
             {
-                client.BaseAddress = new Uri("http://192.168.9.177:8310");
+                client.BaseAddress = new Uri(ConnectionDetails.GetRemoteSmsServiceUrl());
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/SendSmsService/services/SendSms/");
                 request.Content = new StringContent(buildSMSXML(timestampString: timestampString), Encoding.UTF8, "text/xml");

@@ -135,7 +135,7 @@ namespace BarefootPower.Controllers
             using (var handler = new HttpClientHandler() { Credentials = new NetworkCredential(ConnectionDetails.GetUsername(), ConnectionDetails.HashPassword(ConnectionDetails.GetSpID() + ConnectionDetails.GetPassword() + timestampString)) })
             using (var client = new HttpClient(handler))
             {
-                client.BaseAddress = new Uri("http://192.168.9.177:8310");
+                client.BaseAddress = new Uri(ConnectionDetails.GetRemoteSmsServiceUrl());
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/SmsNotificationManagerService/services/SmsNotificationManager/");
                 request.Content = new StringContent(message, Encoding.UTF8, "text/xml");

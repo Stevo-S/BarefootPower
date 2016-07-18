@@ -389,6 +389,9 @@
     <Content Include="Views\Sales\Details.cshtml" />
     <Content Include="Views\Sales\Edit.cshtml" />
     <Content Include="Views\Sales\Index.cshtml" />
+    <Content Include="Views\Agents\Upload.cshtml" />
+    <Content Include="Views\Agents\UploadError.cshtml" />
+    <Content Include="Views\Agents\_UploadError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
