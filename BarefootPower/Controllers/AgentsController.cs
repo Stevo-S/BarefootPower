@@ -140,10 +140,14 @@ namespace BarefootPower.Controllers
             //TODO: Implement Upload Agents via Excel sheet
             // Read uploaded Microsoft Excel file and create tips based on file content
             // Assumes the tips are in the first column starting from the second row.
+            
+            var ErrorMessages = new List<string>() { };
+            var SuccessMessages = new List<string>() { };
+
             try
             {
-                var ErrorMessages = new List<string> { };
                 ViewBag.hasErrors = false;
+                int duplicates = 0; 
                 if ((AgentsFile != null) && (AgentsFile.ContentLength > 0) && !string.IsNullOrEmpty(AgentsFile.FileName))
                 {
                     using (var package = new ExcelPackage(AgentsFile.InputStream))
@@ -190,6 +194,7 @@ namespace BarefootPower.Controllers
                             // Ignore records with the phone number already existing in the database
                             if (db.Agents.Where(a => a.Phone.EndsWith(phone.Substring(phone.Length - 9))).Any())
                             {
+                                duplicates++;
                                 continue;
                             }
 
@@ -206,15 +211,25 @@ namespace BarefootPower.Controllers
 
                             db.Agents.Add(agent);
                         }
+
+                        SuccessMessages.Add("Upload Successful.");
+                        if (duplicates > 0)
+                        {
+                            SuccessMessages.Add(duplicates.ToString() + " duplicate/existing phone numbers detected. They have been ignored.");
+                        }
                     }
 
                     db.SaveChanges();
+                    TempData["SuccessNotifications"] = SuccessMessages;
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception ex)
             {
                 Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                ViewBag.hasErrors = true;
+                ErrorMessages.Add("Could not add agents into the database. The Uploaded file is not properly formatted.");
+                ViewBag.ErrorNotifications = ErrorMessages;
                 return View();
             }
 
