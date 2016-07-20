@@ -67,6 +67,7 @@ namespace BarefootPower.Controllers
                     ServiceId = serviceId,
                     ShortCode = shortCode,
                     Timestamp = DateTime.Now,
+                    PassedValidation = false,
                     TraceUniqueId = traceUniqueId
                 };
 

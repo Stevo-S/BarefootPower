@@ -33,6 +33,8 @@ namespace BarefootPower.Models
 
         public DateTime Timestamp { get; set; }
 
+        public bool PassedValidation { get; set; }
+
         public string GetResponse()
         {
             string response;
@@ -40,6 +42,7 @@ namespace BarefootPower.Models
             try
             {
                 response = processMessage();
+                PassedValidation = true;
             }
             catch (NullReferenceException ex)
             {

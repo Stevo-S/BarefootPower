@@ -1,13 +1,13 @@
 ﻿@model PagedList.IPagedList<BarefootPower.Models.InboundMessage>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Messaging";
 }
 
 <h2>Inbound Messages</h2>
 
 <div class="well">
-    
+
     @using (Html.BeginForm(null, null, FormMethod.Get, new { @class = "form-inline" }))
     {
 
@@ -44,6 +44,21 @@
             </span>
         </div>
 
+        <div class="input-group col-md-1">
+            <div class="radio">
+                <label>
+                    @Html.RadioButton("formatted", "all", (bool)(ViewBag.formattedFilter == "all"))
+                    All
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    @Html.RadioButton("formatted", "incorrectly", (bool)(ViewBag.formattedFilter == "incorrectly"))
+                    Incorrect
+                </label>
+            </div>
+        </div>
+
 
         <input type="submit" class="btn btn-warning" value="Filter" />
     }
@@ -67,23 +82,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td class="messageColumn">
-            @Html.DisplayFor(modelItem => item.Message)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShortCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Timestamp)
-        </td>
-        
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="messageColumn">
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Timestamp)
+            </td>
+
+        </tr>
+    }
 
 </table>
 
@@ -98,5 +114,6 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of (@Model.Pag
         phoneNumber = ViewBag.phoneFilter,
         messageText = ViewBag.messageFilter,
         startDate = ViewBag.startDateFilter,
-        endDate = ViewBag.endDateFilter
+        endDate = ViewBag.endDateFilter,
+        formatted = ViewBag.formattedFilter
     }))

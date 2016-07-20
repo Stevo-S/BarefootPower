@@ -16,7 +16,7 @@ namespace BarefootPower.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: InboundMessages
-        public ActionResult Index(String phoneNumber, String messageText, DateTime? startDate, DateTime? endDate, int? page)
+        public ActionResult Index(String phoneNumber, String messageText, string formatted, DateTime? startDate, DateTime? endDate, int? page)
         {
             var messages = from m in db.InboundMessages
                            select m;
@@ -43,6 +43,20 @@ namespace BarefootPower.Controllers
                 messages = messages.Where(m => m.Timestamp > startDate && m.Timestamp < endDate);
                 ViewBag.startDateFilter = startDate.Value.ToString("s");
                 ViewBag.endDateFilter = endDate.Value.ToString("s");
+            }
+
+            if (!string.IsNullOrEmpty(formatted))
+            {
+                if (formatted == "incorrectly")
+                {
+                    messages = messages.Where(m => m.PassedValidation);
+                }
+                ViewBag.formattedFilter = formatted;
+            }
+
+            if (formatted == "incorrectly")
+            {
+                messages = messages.Where(m => m.PassedValidation);
             }
 
             int pageNumber = (page ?? 1);
