@@ -26,7 +26,7 @@ namespace BarefootPower.Controllers
 
             int pageNumber = (page ?? 1);
             int pageSize = 16;
-
+            ViewBag.Total = agents.Count();
             return View(agents.ToPagedList(pageNumber, pageSize));
         }
 
