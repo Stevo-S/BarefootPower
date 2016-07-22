@@ -4,7 +4,20 @@
     ViewBag.Title = "Messaging";
 }
 
-<h2>Inbound Messages</h2>
+<div class="row">
+    <div class="col-md-10">
+        <h3>Inbound Messages</h3>
+    </div>
+
+    <div class="col-md-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="lead">Total: &nbsp;  @ViewBag.Total</span>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <div class="well">
 
@@ -34,33 +47,33 @@
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
         </div>
-        <div class="input-group input-group-sm col-md-2">
-            <span class="input-group-addon">
-                and
-            </span>
-            <input type="datetime-local" name="endDate" class="form-control" value="@ViewBag.endDateFilter" />
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-            </span>
-        </div>
-
-        <div class="input-group col-md-1">
-            <div class="radio">
-                <label>
-                    @Html.RadioButton("formatted", "all", (bool)(ViewBag.formattedFilter == "all"))
-                    All
-                </label>
+            <div class="input-group input-group-sm col-md-2">
+                <span class="input-group-addon">
+                    and
+                </span>
+                <input type="datetime-local" name="endDate" class="form-control" value="@ViewBag.endDateFilter" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
             </div>
-            <div class="radio">
-                <label>
-                    @Html.RadioButton("formatted", "incorrectly", (bool)(ViewBag.formattedFilter == "incorrectly"))
-                    Incorrect
-                </label>
+
+            <div class="input-group col-md-1">
+                <div class="radio">
+                    <label>
+                        @Html.RadioButton("formatted", "all", (bool)(ViewBag.formattedFilter == "all"))
+                        All
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        @Html.RadioButton("formatted", "incorrectly", (bool)(ViewBag.formattedFilter == "incorrectly"))
+                        Incorrect
+                    </label>
+                </div>
             </div>
-        </div>
 
 
-        <input type="submit" class="btn btn-warning" value="Filter" />
+            <input type="submit" class="btn btn-warning" value="Filter" />
     }
 </div>
 <br />
@@ -105,9 +118,9 @@
 
 <br />
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of (@Model.PageCount)
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of (@Model.PageCount)
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
+    @Html.PagedListPager(Model, page => Url.Action("Index",
     new
     {
         page,

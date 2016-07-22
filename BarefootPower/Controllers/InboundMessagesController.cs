@@ -61,6 +61,7 @@ namespace BarefootPower.Controllers
 
             int pageNumber = (page ?? 1);
             int pageSize = 25;
+            ViewBag.Total = messages.Count();
             return View(messages.ToPagedList(pageNumber, pageSize));
         }
 
