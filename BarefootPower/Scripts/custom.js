@@ -6,7 +6,11 @@
 
         // Toggle mouse hand
         $(this).toggleClass('handHover');
-    }
-     );
+    });
+
+    // Back buttons
+    $('.previous_page').click(function () {
+        history.back();
+    });
 }
 );

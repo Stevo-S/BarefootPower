@@ -53,12 +53,7 @@ namespace BarefootPower.Controllers
                 }
                 ViewBag.formattedFilter = formatted;
             }
-
-            if (formatted == "incorrectly")
-            {
-                messages = messages.Where(m => m.PassedValidation);
-            }
-
+            
             int pageNumber = (page ?? 1);
             int pageSize = 25;
             ViewBag.Total = messages.Count();
