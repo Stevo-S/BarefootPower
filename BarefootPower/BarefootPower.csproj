@@ -281,6 +281,10 @@
     <Compile Include="Migrations\201607201235391_AddPassedValidationToInboundMessages.Designer.cs">
       <DependentUpon>201607201235391_AddPassedValidationToInboundMessages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608261505173_RemoveEmailandMiddleNameFromAgents.cs" />
+    <Compile Include="Migrations\201608261505173_RemoveEmailandMiddleNameFromAgents.Designer.cs">
+      <DependentUpon>201608261505173_RemoveEmailandMiddleNameFromAgents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agent.cs" />
@@ -434,6 +438,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607201235391_AddPassedValidationToInboundMessages.resx">
       <DependentUpon>201607201235391_AddPassedValidationToInboundMessages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608261505173_RemoveEmailandMiddleNameFromAgents.resx">
+      <DependentUpon>201608261505173_RemoveEmailandMiddleNameFromAgents.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

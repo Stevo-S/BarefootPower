@@ -119,7 +119,7 @@ namespace BarefootPower.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,MiddleName,LastName,Phone,Location,Email,isActive")] Agent agent)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Phone,Location,isActive")] Agent agent)
         {
             if (ModelState.IsValid)
             {
@@ -188,13 +188,12 @@ namespace BarefootPower.Controllers
                         var numberOfColumns = worksheet.Dimension.End.Column;
                         var numberOfRows = worksheet.Dimension.End.Row;
 
-                        string firstNameColumn, middleNameColumn, lastNameColumn, phoneColumn, locationColumn, emailColumn, activeColumn;
+                        string firstNameColumn, lastNameColumn, phoneColumn, locationColumn, activeColumn;
 
                         using (var headers = worksheet.Cells[1, 1, 1, numberOfColumns])
                         {
-                            var expectedHeaders = new[] { "first name", "middle name", "last name",
+                            var expectedHeaders = new[] { "first name", "last name",
                                                           "phone",
-                                                          "email",
                                                           "active"
                                                         };
                             if (!expectedHeaders.All(eh => headers.Any(h => h.Value.ToString().ToLower().StartsWith(eh))))
@@ -205,21 +204,17 @@ namespace BarefootPower.Controllers
                             }
 
                             firstNameColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("first name")).Address[0].ToString();
-                            middleNameColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("middle name")).Address[0].ToString();
                             lastNameColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("last name")).Address[0].ToString();
                             phoneColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("phone")).Address[0].ToString();
-                            emailColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("email")).Address[0].ToString();
                             locationColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("location")).Address[0].ToString();
                             activeColumn = headers.First(h => h.Value.ToString().ToLower().StartsWith("active")).Address[0].ToString();
                         }
                         for (int row = 2; row <= numberOfRows; row++)
                         {
                             var firstName = worksheet.Cells[firstNameColumn + row].Value.ToString();
-                            var middleName = worksheet.Cells[middleNameColumn + row].Value != null ? worksheet.Cells[middleNameColumn + row].Value.ToString() : "";
                             var lastName = worksheet.Cells[lastNameColumn + row].Value.ToString();
                             var phone = worksheet.Cells[phoneColumn + row].Value.ToString();
                             var location = worksheet.Cells[locationColumn + row].Value.ToString();
-                            var email = worksheet.Cells[emailColumn + row].Value != null ? worksheet.Cells[emailColumn + row].Value.ToString() : "";
                             var activeStatus = worksheet.Cells[activeColumn + row].Value.ToString().ToLower().Equals("yes") ? true : false;
 
                             // Ignore records with the phone number already existing in the database
@@ -232,11 +227,9 @@ namespace BarefootPower.Controllers
                             var agent = new Agent()
                             {
                                 FirstName = firstName,
-                                MiddleName = middleName,
                                 LastName = lastName,
                                 Phone = phone,
                                 Location = location,
-                                Email = email,
                                 isActive = activeStatus
                             };
 

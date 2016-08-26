@@ -14,11 +14,7 @@ namespace BarefootPower.Models
         [StringLength(50)]
         [DisplayName("First Name")]
         public string FirstName { get; set; }
-
-        [StringLength(50)]
-        [DisplayName("Middle Name")]
-        public string MiddleName { get; set; }
-
+        
         [StringLength(50)]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
@@ -29,9 +25,6 @@ namespace BarefootPower.Models
         [StringLength(100)]
         public string Location { get; set; }
 
-        [StringLength(100)]
-        public string Email { get; set; }
-
         [DisplayName("Active?")]
         public bool isActive { get; set; }
 
@@ -39,9 +32,7 @@ namespace BarefootPower.Models
         {
             get
             {
-                return FirstName + " " +
-                    (string.IsNullOrEmpty(MiddleName) ? "" : (MiddleName + " "))
-                    + LastName;
+                return FirstName + " " + LastName;
             }
         }
     }
