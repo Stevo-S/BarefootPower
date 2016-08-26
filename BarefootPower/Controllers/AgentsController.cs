@@ -17,16 +17,47 @@ namespace BarefootPower.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Agents
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string agentStatus)
         {
+            List<SelectListItem> agentStatuses = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Active", Value = "active" },
+                new SelectListItem { Text = "Inactive", Value = "inactive" },
+                new SelectListItem { Text = "Any", Value = "any" }
+            };
+
             var agents = from a in db.Agents
                          select a;
+
+            if (!string.IsNullOrEmpty(agentStatus))
+            {
+                if (agentStatus == "active")
+                {
+                    agents = agents.Where(a => a.isActive);
+                    agentStatuses.Find(status => status.Value.Equals("active")).Selected = true;
+                }
+                else if (agentStatus == "inactive")
+                {
+                    agents = agents.Where(a => !a.isActive);
+                    agentStatuses.Find(status => status.Value.Equals("inactive")).Selected = true;
+                }
+                else // set to any if agent status is not empty but neither "active" nor "inactive"
+                {
+                    agentStatuses.Find(status => status.Value.Equals("any")).Selected = true;
+                }
+            }
+            else // set to active if agentStatus is null or empty
+            {
+                agents = agents.Where(a => a.isActive);
+                agentStatuses.Find(status => status.Value.Equals("active")).Selected = true;
+            }
 
             agents = agents.OrderBy(a => a.Id);
 
             int pageNumber = (page ?? 1);
             int pageSize = 16;
             ViewBag.Total = agents.Count();
+            ViewBag.AgentStatus = agentStatuses;
             return View(agents.ToPagedList(pageNumber, pageSize));
         }
 
@@ -140,14 +171,14 @@ namespace BarefootPower.Controllers
             //TODO: Implement Upload Agents via Excel sheet
             // Read uploaded Microsoft Excel file and create tips based on file content
             // Assumes the tips are in the first column starting from the second row.
-            
+
             var ErrorMessages = new List<string>() { };
             var SuccessMessages = new List<string>() { };
 
             try
             {
                 ViewBag.hasErrors = false;
-                int duplicates = 0; 
+                int duplicates = 0;
                 if ((AgentsFile != null) && (AgentsFile.ContentLength > 0) && !string.IsNullOrEmpty(AgentsFile.FileName))
                 {
                     using (var package = new ExcelPackage(AgentsFile.InputStream))
