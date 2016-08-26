@@ -12,7 +12,7 @@
     <div class="col-md-2">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <span class="lead">Total: &nbsp;  @ViewBag.Total</span>
+                <span class="lead">Total: &nbsp;  @Model.TotalItemCount</span>
             </div>
         </div>
     </div>
@@ -81,6 +81,9 @@
 <table class="table table-striped">
     <tr>
         <th>
+
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.First().Message)
         </th>
         <th>
@@ -94,10 +97,15 @@
         </th>
         <th></th>
     </tr>
-
+    @{
+        int listItemNumber = (Model.PageNumber - 1) * Model.PageSize + 1;
+    }
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @listItemNumber 
+            </td>
             <td class="messageColumn">
                 @Html.DisplayFor(modelItem => item.Message)
             </td>
@@ -111,7 +119,9 @@
                 @Html.DisplayFor(modelItem => item.Timestamp)
             </td>
 
+            @{ listItemNumber++; }
         </tr>
+        
     }
 
 </table>

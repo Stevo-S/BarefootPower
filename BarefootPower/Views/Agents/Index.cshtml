@@ -14,7 +14,7 @@
     <div class="col-md-2">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <span class="lead">Total: &nbsp;  @ViewBag.Total</span>
+                <span class="lead">Total: &nbsp;  @Model.TotalItemCount</span>
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
         <th></th>
     </tr>
 @{ 
-    int listItemNumber = Model.PageNumber * Model.PageCount;
+    int listItemNumber = (Model.PageNumber - 1) * Model.PageSize + 1;
 }
 @foreach (var item in Model) {
     <tr>
