@@ -65,6 +65,9 @@
 <table class="table table-striped">
     <tr>
         <th>
+
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.First().FirstName)
         </th>
         <th>
@@ -81,9 +84,14 @@
         </th>
         <th></th>
     </tr>
-
+@{ 
+    int listItemNumber = Model.PageNumber * Model.PageCount;
+}
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @listItemNumber .
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
@@ -103,6 +111,9 @@
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
             @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
         </td>
+
+        @{ listItemNumber++; }
+
     </tr>
 }
 
