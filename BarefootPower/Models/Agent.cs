@@ -21,7 +21,7 @@ namespace BarefootPower.Models
 
         [StringLength(20)]
         public string Phone { get; set; }
-
+        [Display(Name = "Branch")]
         [StringLength(100)]
         public string Location { get; set; }
 
