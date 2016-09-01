@@ -17,7 +17,7 @@ namespace BarefootPower.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Agents
-        public ActionResult Index(int? page, string agentStatus)
+        public ActionResult Index(int? page, string agentStatus, string phoneNumber)
         {
             List<SelectListItem> agentStatuses = new List<SelectListItem>
             {
@@ -29,6 +29,7 @@ namespace BarefootPower.Controllers
             var agents = from a in db.Agents
                          select a;
 
+            // Filter by agent status
             if (!string.IsNullOrEmpty(agentStatus))
             {
                 if (agentStatus == "active")
@@ -50,6 +51,12 @@ namespace BarefootPower.Controllers
             {
                 agents = agents.Where(a => a.isActive);
                 agentStatuses.Find(status => status.Value.Equals("active")).Selected = true;
+            }
+
+            // Filter by phonenumber
+            if (!string.IsNullOrEmpty(phoneNumber))
+            {
+                agents = agents.Where(a => a.Phone.Contains(phoneNumber));
             }
 
             agents = agents.OrderBy(a => a.Id);
