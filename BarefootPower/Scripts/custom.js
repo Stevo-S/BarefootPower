@@ -12,5 +12,8 @@
     $('.previous_page').click(function () {
         history.back();
     });
+
+    // Enable bootstrap tooltips
+    $('[data-toggle="tooltip"]').tooltip();
 }
 );

@@ -80,7 +80,9 @@
             @Html.DisplayNameFor(model => model.First().Location)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.First().isActive)
+            <span data-toggle="tooltip" title="Agent Status: Checked means agent is active and allowed to file reports via SMS">
+                @Html.DisplayNameFor(model => model.First().isActive)
+            </span>
         </th>
         <th></th>
     </tr>
